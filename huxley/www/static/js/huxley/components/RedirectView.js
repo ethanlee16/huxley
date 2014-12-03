@@ -1,25 +1,23 @@
 /**
  * Copyright (c) 2011-2014 Berkeley Model United Nations. All rights reserved.
  * Use of this source code is governed by a BSD License (see LICENSE).
- *
- * @jsx React.DOM
  */
 
 'use strict';
 
 var React = require('react');
-var RRouter = require('rrouter');
+var Router = require('react-router');
 
 var OuterView = require('./OuterView');
 
 var RedirectView = React.createClass({
-  mixins: [RRouter.RoutingContextMixin],
+  mixins: [Router.Navigation],
 
   componentDidMount: function() {
     if (this.props.user.isAnonymous()) {
-      this.navigate('/login');
+      this.transitionTo('/login');
     } else if (this.props.user.isAdvisor()) {
-      this.navigate('/advisor/profile');
+      this.transitionTo('/advisor/profile');
     }
   },
 

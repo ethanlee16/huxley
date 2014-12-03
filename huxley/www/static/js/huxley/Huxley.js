@@ -1,37 +1,46 @@
 /**
  * Copyright (c) 2011-2014 Berkeley Model United Nations. All rights reserved.
  * Use of this source code is governed by a BSD License (see LICENSE).
- *
- * @jsx React.DOM
  */
 
 'use strict';
 
 var React = require('react/addons');
-var RRouter = require('rrouter');
+var Router = require('react-router');
+
+var AdvisorView = require('./components/AdvisorView');
 var CurrentUserStore = require('./stores/CurrentUserStore');
 
-var cloneWithProps = React.addons.cloneWithProps;
+var RouteHandler = Router.RouteHandler;
 
 var Huxley = React.createClass({
-  mixins: [RRouter.RoutingContextMixin],
+  mixins: [Router.Navigation],
 
   componentWillMount: function() {
     CurrentUserStore.addChangeListener(function() {
       var user = CurrentUserStore.getCurrentUser();
       if (user.isAnonymous()) {
-        this.navigate('/login');
+        this.transitionTo('/login');
       } else if (user.isAdvisor()) {
-        this.navigate('/advisor/profile');
+        this.transitionTo('/advisor/profile');
       }
     }.bind(this));
   },
 
   render: function() {
-    return cloneWithProps(this.props.view, {
-      user: CurrentUserStore.getCurrentUser()
-    });
-  }
+    var user = CurrentUserStore.getCurrentUser();
+    if (user.isAnonymous()) {
+      return <RouteHandler user={user} />;
+    } else if (user.isAdvisor()) {
+      return (
+        <AdvisorView user={user}>
+          <RouteHandler user={user} />
+        </AdvisorView>
+      );
+    } else {
+      // TODO: Chairs
+    }
+  },
 });
 
 module.exports = Huxley;

@@ -5,16 +5,21 @@
 
 'use strict';
 
+var Link = require('react-router').Link;
 var React = require('react');
 
-var InnerView = React.createClass({
+var NavTab = React.createClass({
+  propTypes: {
+    href: React.PropTypes.string.isRequired
+  },
+
   render: function() {
     return (
-      <div className="content transparent ie-layout rounded-bottom">
+      <Link to={this.props.href} className='tab'>
         {this.props.children}
-      </div>
+      </Link>
     );
-  },
+  }
 });
 
-module.exports = InnerView;
+module.exports = NavTab;

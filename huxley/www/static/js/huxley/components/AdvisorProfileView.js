@@ -1,19 +1,18 @@
 /**
  * Copyright (c) 2011-2014 Berkeley Model United Nations. All rights reserved.
  * Use of this source code is governed by a BSD License (see LICENSE).
- *
- * @jsx React.DOM
  */
 
 'use strict';
 
 var React = require('react/addons');
 
-var AdvisorView = require('./AdvisorView');
+var Button = require('./Button');
+var InnerView = require('./InnerView');
+var InvoiceButton = require('./InvoiceButton');
 var LogoutButton = require('./LogoutButton');
 var ProgramTypes = require('../constants/ProgramTypes');
 var User = require('../User');
-
 
 var AdvisorProfileView = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
@@ -26,13 +25,20 @@ var AdvisorProfileView = React.createClass({
     var user = this.props.user.getData();
     var school = this.props.user.getSchool();
     return (
-      <AdvisorView user={this.props.user}>
+      <InnerView>
         <h2>Welcome, {user.first_name}!</h2>
         <p>
           We are very excited to see {school.name} at BMUN 63 this year! Here,
           you can view your registration information for the conference. Please
           note that fees are currently <strong>estimates</strong> based on the
           approximate delegation size given during registration.
+        </p>
+        <br />
+        <p>
+          Advisors, if you wish to generate an invoice for your school with your
+          payment details, please click on the Generate Your Invoice button under
+          the Fees tab. You will receive an invoice in your email within 2 business
+          days.
         </p>
         <br />
         <p><strong>Important Note:</strong> Please mail all checks to <strong>
@@ -174,7 +180,7 @@ var AdvisorProfileView = React.createClass({
                 </td>
               </tr>
               <tr>
-                <th colSpan="2">Fees</th>
+                <th colSpan="2">Fees <InvoiceButton user={this.props.user} /></th>
               </tr>
               <tr>
                 <td className="fieldLabel">Fees Owed</td>
@@ -199,9 +205,8 @@ var AdvisorProfileView = React.createClass({
           <div className="tablemenu footer">
           </div>
         </form>
-      </AdvisorView>
+      </InnerView>
     );
   },
 });
-
 module.exports = AdvisorProfileView;

@@ -1,13 +1,11 @@
 /**
  * Copyright (c) 2011-2014 Berkeley Model United Nations. All rights reserved.
  * Use of this source code is governed by a BSD License (see LICENSE).
- *
- * @jsx React.DOM
  */
 
 'use strict';
 
-var Link = require('rrouter').Link;
+var Link = require('react-router').Link;
 var React = require('react/addons');
 
 var NavLink = React.createClass({
@@ -25,7 +23,7 @@ var NavLink = React.createClass({
           'arrow-left': this.props.direction == 'left',
           'arrow-right': this.props.direction == 'right'
         })}
-        href={this.props.href}>
+        to={this.props.href}>
         {this.props.children}
       </Link>
     );

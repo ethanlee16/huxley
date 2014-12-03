@@ -1,8 +1,6 @@
 /**
  * Copyright (c) 2011-2014 Berkeley Model United Nations. All rights reserved.
  * Use of this source code is governed by a BSD License (see LICENSE).
- *
- * @jsx React.DOM
  */
 
 'use strict';
@@ -44,13 +42,11 @@ var LogoutButton = React.createClass({
   },
 
   _handleLogoutSuccess: function(data, status, jqXHR) {
-    console.log('logging out');
     CurrentUserActions.logout();
   },
 
   _handleLogoutError: function(jqXHR, status, error) {
     var response = jqXHR.responseJSON;
-    console.log(response.detail);
   }
 });
 

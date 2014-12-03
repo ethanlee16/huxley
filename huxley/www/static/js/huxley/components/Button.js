@@ -1,14 +1,12 @@
 /**
  * Copyright (c) 2011-2014 Berkeley Model United Nations. All rights reserved.
  * Use of this source code is governed by a BSD License (see LICENSE).
- *
- * @jsx React.DOM
  */
 
 'use strict';
 
 var React = require('react/addons');
-var RRouter = require('rrouter');
+var Router = require('react-router');
 
 var Button = React.createClass({
   propTypes: {
@@ -28,10 +26,11 @@ var Button = React.createClass({
 
   render: function() {
     var cx = React.addons.classSet;
-    var ButtonComponent = this.props.href ? RRouter.Link : React.DOM.button;
+    var ButtonComponent = this.props.href ? Router.Link : 'button';
 
-    return this.transferPropsTo(
+    return (
       <ButtonComponent
+        {...this.props}
         className={cx({
           'button': true,
           'button-small': this.props.size == 'small',
@@ -41,7 +40,8 @@ var Button = React.createClass({
           'rounded-small': true,
           'loading': this.props.loading
         })}
-        disabled={this.props.loading}>
+        disabled={this.props.loading}
+        to={this.props.href}>
         <span>{this.props.children}</span>
       </ButtonComponent>
     );
